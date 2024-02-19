@@ -12,7 +12,7 @@ import {
   PolicyTextContainer,
 } from "./components";
 
-export const LoginPage = () => {
+export const SignUpPage = () => {
   const navigate = useNavigate();
   return (
     <Container>
@@ -38,7 +38,9 @@ export const LoginPage = () => {
             <LockIcon />
           </InputContainer>
 
-          <LoginButton onClick={() => navigate("/products")}>Login</LoginButton>
+          <LoginButton onClick={() => navigate("/products")}>
+            Sign up
+          </LoginButton>
 
           <PolicyTextContainer>
             <Typography variant="tiny" style={{ textAlign: "center" }}>
@@ -50,7 +52,7 @@ export const LoginPage = () => {
             <hr style={{ width: "70%", margin: "8px 0px" }} />
 
             <Typography variant="small">
-              Don't have an account? <Link to={"/signup"}>Sign up</Link>
+              Already have an account? <Link to={"/login"}>Log in</Link>
             </Typography>
           </PolicyTextContainer>
         </Content>

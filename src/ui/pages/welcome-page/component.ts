@@ -58,7 +58,6 @@ export const ContentImage = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 20% 20% 0px 0px;
-  /* border: 5px ${(props) => props.theme.colors.primary} solid; */
 `;
 
 export const ShopNowButton = styled.button`
@@ -72,13 +71,15 @@ export const ShopNowButton = styled.button`
   cursor: pointer;
   text-transform: uppercase;
   font-weight: 700;
-  transition: background-color 0.3s ease;
-
   border-radius: 0px 60px 30px 80px;
+
+  transition: background-color 0.3s ease;
+  transition: border-radius 0.3s ease;
 
   &:hover {
     background-color: gainsboro;
     color: ${(props) => props.theme.colors.secondary};
+    border-radius: 30px 80px 0px 60px;
   }
 `;
 

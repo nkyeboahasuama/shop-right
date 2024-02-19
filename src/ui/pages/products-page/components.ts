@@ -1,32 +1,5 @@
 import styled from "styled-components";
 
-export const Header = styled.header`
-  height: 100px;
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  box-sizing: content-box;
-  padding: 20px;
-
-  ul {
-    list-style: none;
-    display: flex;
-    gap: 40px;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 15px;
-
-    li {
-      padding: 5px;
-    }
-
-    .active {
-      text-decoration: underline;
-      text-underline-offset: calc(30%);
-    }
-  }
-`;
-
 export const Container = styled.div`
   display: flex;
   justify-content: space-around;
@@ -40,6 +13,7 @@ export const ProductCard = styled.div`
   width: 100%;
   background-color: red;
   border: 2px green solid;
+  cursor: pointer;
 `;
 
 export const ProductContainer = styled.div`

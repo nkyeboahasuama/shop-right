@@ -1,6 +1,6 @@
 import React from "react";
 import { Typography } from "../atoms";
-import { HeaderContainer } from "./components";
+import { CartIcon, HeaderContainer } from "./components";
 import { useNavigate } from "react-router-dom";
 
 export const Header = () => {
@@ -14,7 +14,10 @@ export const Header = () => {
         <li className="active">Shop</li>
         <li>About</li>
         <li>Contact</li>
-        <li>Cart</li>
+        <div>
+          <CartIcon onClick={() => navigate("/cart")} />
+          <span>0</span>
+        </div>
       </ul>
     </HeaderContainer>
   );

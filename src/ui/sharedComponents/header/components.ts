@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { PiShoppingCartSimpleFill } from "react-icons/pi";
 
 export const HeaderContainer = styled.header`
   height: 100px;
@@ -31,4 +32,11 @@ export const HeaderContainer = styled.header`
       text-underline-offset: calc(30%);
     }
   }
+`;
+
+export const CartIcon = styled(PiShoppingCartSimpleFill)`
+  font-size: 25px;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
 `;

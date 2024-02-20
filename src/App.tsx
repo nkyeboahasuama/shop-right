@@ -6,6 +6,7 @@ import { LoginPage, WelcomePage } from "./ui/pages";
 import { ProductsPage } from "./ui/pages/products-page";
 import { SignUpPage } from "./ui/pages/signup-page";
 import { ProductDetailPage } from "./ui/pages/product-detail-page";
+import { CartPage } from "./ui/pages/cart-page";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/products" element={<ProductsPage />} />
 
           <Route path="/product/:productId" element={<ProductDetailPage />} />
+          <Route path="/cart" element={<CartPage />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

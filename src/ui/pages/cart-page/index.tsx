@@ -1,33 +1,30 @@
-import React from "react";
 import { Header } from "../../sharedComponents";
 import { Typography } from "../../sharedComponents/atoms";
 import {
-  CartItem,
-  CartItemCard,
-  CartItemContainer,
-  CartItemName,
-  CartItemPrice,
-  CartItemQuantity,
-  CartValueDetails,
+  CheckoutButton,
+  CheckoutContainer,
   Container,
+  SubtotalContainer,
 } from "./components";
+
+import { CartItemComponent } from "../../components";
 
 export const CartPage = () => {
   return (
     <>
       <Header />
       <Container>
-        <Typography variant="p">Shopping Cart</Typography>
-        <CartItemContainer>
-          <CartItem>
-            <CartItemCard></CartItemCard>
-            <CartItemName>Product Name</CartItemName>
-          </CartItem>
-          <CartValueDetails>
-            <CartItemQuantity>- 3 +</CartItemQuantity>
-            <CartItemPrice>$230</CartItemPrice>
-          </CartValueDetails>
-        </CartItemContainer>
+        <Typography variant="h4">Shopping Cart</Typography>
+        {[1, 2].map((cartItem) => (
+          <CartItemComponent />
+        ))}
+        <CheckoutContainer>
+          <SubtotalContainer>
+            <Typography variant="p">Subtotal</Typography>
+            <Typography variant="h4">$240</Typography>
+          </SubtotalContainer>
+          <CheckoutButton>Checkout</CheckoutButton>
+        </CheckoutContainer>
       </Container>
     </>
   );

@@ -11,7 +11,9 @@ export const Header = () => {
         SHOP-RIGHT
       </Typography>
       <ul>
-        <li className="active">Shop</li>
+        <li className="active" onClick={() => navigate("/products")}>
+          Shop
+        </li>
         <li>About</li>
         <li>Contact</li>
         <div>

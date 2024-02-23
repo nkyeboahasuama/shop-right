@@ -57,7 +57,8 @@ export const ProductSize = styled.div`
     z-index: 2;
 
     option {
-      height: 70px;
+      margin: 100px;
+      font-size: 18px;
     }
   }
 `;

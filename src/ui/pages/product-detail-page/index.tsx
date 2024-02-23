@@ -12,27 +12,47 @@ import {
   SelectArrowDown,
 } from "./components";
 import { Typography } from "../../sharedComponents/atoms";
+import { useParams } from "react-router-dom";
+import { productService } from "../../../service/products/product.service";
+import { useEffect, useState } from "react";
+import { IProduct } from "../../../core/interface";
+
 export const ProductDetailPage = () => {
+  const [product, setProduct] = useState<IProduct>();
+  const { productId } = useParams();
+
+  useEffect(() => {
+    getProductDetails();
+  }, [productId]);
+
+  const getProductDetails = async () => {
+    try {
+      if (!productId) return;
+      const data = await productService.getProductDetails(productId);
+      setProduct(data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <Header />
       <Container>
         <ProductDetails>
           <ProductInfoContainer>
-            <ProductName>Product Name</ProductName>
+            <ProductName>{product?.name}</ProductName>
             <ProductPrice variant="h3">$1290</ProductPrice>
-            <Typography variant="p">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit
-              voluptas aperiam omnis impedit quis labore sapiente?
-            </Typography>
+            <Typography variant="p">{product?.description}</Typography>
           </ProductInfoContainer>
           <ProductSize>
             <label htmlFor="size">Size:</label>
             <select>
               <option>Select Size</option>
-              <option value="large">Large</option>
-              <option value="medium">Medium</option>
-              <option value="small">Small</option>
+              {product?.sizes?.map((size) => (
+                <option value={size} key={size}>
+                  {size}
+                </option>
+              ))}
             </select>
             <SelectArrowDown />
           </ProductSize>

@@ -23,6 +23,10 @@ export const ContentContainer = styled.div`
   justify-content: space-around;
   border-radius: 10px;
   box-shadow: 1px 3px 4px black;
+
+  > h4 {
+    margin-bottom: 10px;
+  }
 `;
 
 export const Content = styled.div`
@@ -30,7 +34,6 @@ export const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* border: 2px solid red; */
 `;
 
 export const InputContainer = styled.div`

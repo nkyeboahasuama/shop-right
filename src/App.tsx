@@ -13,6 +13,7 @@ import {
   WelcomePage,
 } from "./ui/pages";
 import { CartContextProvider } from "./context/cart-context";
+import { UserContextProvider } from "./context/user-context";
 
 function App() {
   const routes = [
@@ -47,16 +48,18 @@ function App() {
   ];
   return (
     <ThemeProvider theme={theme}>
-      <CartContextProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<WelcomePage />} />
-            {routes.map((route, index) => (
-              <Route key={index} path={route.path} element={route.element} />
-            ))}
-          </Routes>
-        </BrowserRouter>
-      </CartContextProvider>
+      <UserContextProvider>
+        <CartContextProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<WelcomePage />} />
+              {routes.map((route, index) => (
+                <Route key={index} path={route.path} element={route.element} />
+              ))}
+            </Routes>
+          </BrowserRouter>
+        </CartContextProvider>
+      </UserContextProvider>
     </ThemeProvider>
   );
 }

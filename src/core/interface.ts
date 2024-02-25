@@ -15,11 +15,20 @@ export interface IOrder {
   time?: string;
 }
 
+// export interface IUser {
+//   _id?: string;
+//   name: string;
+//   email: string;
+//   time?: string;
+// }
 export interface IUser {
-  _id?: string;
   name: string;
   email: string;
-  time?: string;
+  password: any;
+  _id?: string;
+  phone?: string;
+  address?: string;
+  profileImage?: string;
 }
 
 export interface ICartItem {

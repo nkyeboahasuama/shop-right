@@ -64,7 +64,11 @@ export const ProductDetailPage = () => {
             </ProductInfoContainer>
             <ProductSize>
               <label htmlFor="size">Size:</label>
-              <select>
+              <select
+                required
+                onChange={(e) => setSize(e.target.value)}
+                value={size}
+              >
                 <option>Select Size</option>
                 {product.sizes.map((size) => (
                   <option value={size} key={size}>

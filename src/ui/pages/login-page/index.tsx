@@ -11,8 +11,27 @@ import {
   LockIcon,
   PolicyTextContainer,
 } from "./components";
+import { useState } from "react";
+import { userService } from "../../../service/users/user.service";
+import { useUserContext } from "../../../context/hooks";
+import { IUser } from "../../../core/interface";
 
 export const LoginPage = () => {
+  const [userEmail, setUserEmail] = useState("");
+  const [password, setUserPassword] = useState<any>("");
+
+  const { setUserState, user } = useUserContext();
+
+  const handleLogin = async () => {
+    try {
+      const results = await userService.loginUser(userEmail, password);
+      if (!results) throw new Error("User error: Can not login user");
+      setUserState(results.data);
+      navigate("/products");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const navigate = useNavigate();
   return (
     <Container>
@@ -25,6 +44,7 @@ export const LoginPage = () => {
               type="text"
               name="email"
               placeholder="example@email.com"
+              onChange={(e) => setUserEmail(e.target.value)}
             />
             <UserIcon />
           </InputContainer>
@@ -34,11 +54,12 @@ export const LoginPage = () => {
               type="password"
               name="password"
               placeholder="Password"
+              onChange={(e) => setUserPassword(e.target.value)}
             />
             <LockIcon />
           </InputContainer>
 
-          <LoginButton onClick={() => navigate("/products")}>Login</LoginButton>
+          <LoginButton onClick={handleLogin}>Login</LoginButton>
 
           <PolicyTextContainer>
             <Typography variant="tiny" style={{ textAlign: "center" }}>

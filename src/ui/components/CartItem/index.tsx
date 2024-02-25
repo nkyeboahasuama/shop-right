@@ -40,6 +40,11 @@ export const CartItemComponent: React.FC<IProps> = ({ cartItem }) => {
         <div>
           <CartItemName>{cartItem.product.name}</CartItemName>
           <Typography variant="p">${cartItem.product.price}</Typography>
+          {cartItem.selected_size && (
+            <Typography variant="small">
+              Size: {cartItem.selected_size.toLocaleUpperCase()}
+            </Typography>
+          )}
         </div>
       </CartItem>
       <CartValueDetails>

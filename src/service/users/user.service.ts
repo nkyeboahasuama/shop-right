@@ -5,11 +5,20 @@ const USER_API = "http://localhost:3001/api/user";
 
 const createUser = async (newUser: IUser) => {
   try {
-    const response = await axios.patch(`${USER_API}`, newUser);
+    const response = await axios.post(`${USER_API}/create`, newUser);
     return response;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const userService = { createUser };
+const loginUser = async (userEmail: string, password: any) => {
+  try {
+    const response = await axios.post(`${USER_API}/login`, { userEmail });
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const userService = { createUser, loginUser };

@@ -18,7 +18,6 @@ export const AdminPage = () => {
     };
     adminService.addNewProduct(newProduct);
   };
-  console.log(sizes);
 
   const handleUpdateSizes = (size: string) => {
     const updatedSizes = sizes.includes(size)

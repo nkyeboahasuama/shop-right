@@ -21,3 +21,9 @@ export interface IUser {
   email: string;
   time?: string;
 }
+
+export interface ICartItem {
+  product: IProduct;
+  quantity: number;
+  selected_size?: string;
+}

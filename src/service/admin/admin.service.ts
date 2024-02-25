@@ -5,7 +5,6 @@ const addNewProduct = (newProduct: IProduct) => {
   axios
     .post("http://localhost:3001/api/add-product", newProduct)
     .then((res) => {
-      console.log(res.data);
       console.log("Adding product:", newProduct);
     })
     .catch((err: any) => {

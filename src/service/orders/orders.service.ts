@@ -6,7 +6,6 @@ const ORDER_API = "http://localhost:3001/api/order";
 const createOrder = async (newOrder: IOrder) => {
   try {
     const response = await axios.post(`${ORDER_API}/create`, newOrder);
-    console.log(response);
     return response;
   } catch (error) {
     console.log(error);
@@ -19,7 +18,6 @@ const editOrder = async (updatedOrder: IOrder, id: string) => {
       `${ORDER_API}/:${id}/edit`,
       updatedOrder
     );
-    console.log(response);
     return response;
   } catch (error) {
     console.log(error);

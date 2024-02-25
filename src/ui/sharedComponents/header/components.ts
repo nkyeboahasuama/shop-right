@@ -3,6 +3,7 @@ import { PiShoppingCartSimpleFill } from "react-icons/pi";
 import { FaUser } from "react-icons/fa";
 
 export const HeaderContainer = styled.header`
+  position: relative;
   height: 100px;
   display: flex;
   align-items: baseline;
@@ -43,14 +44,17 @@ export const CartIcon = styled(PiShoppingCartSimpleFill)`
 `;
 
 export const UserIcon = styled(FaUser)`
-  background-color: gainsboro;
   font-size: 20px;
   border-radius: 50%;
   padding: 5px;
+  background-color: ${(props) => props.theme.colors.secondary};
+  color: white;
   cursor: pointer;
-  box-shadow: 0px 1px 5px black;
   &:hover {
-    background-color: white;
-    box-shadow: 1px 2px 5px black;
+    background-color: gainsboro;
+    color: black;
+    box-shadow: 0px 1px 5px black;
+
+    /* box-shadow: 1px 2px 5px black; */
   }
 `;

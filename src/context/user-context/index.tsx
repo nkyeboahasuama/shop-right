@@ -1,25 +1,49 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useReducer, useEffect } from "react";
 import { IUser } from "../../core/interface";
 
+interface IUserDB extends IUser {
+  email: string;
+  token: any;
+}
+
+interface IAction {
+  type: string;
+  payload: IUser | null;
+}
 interface IUserContext {
-  setUserState: (userObject: IUser) => void;
-  user: IUser | null;
+  state: { user: IUser | null };
+  dispatch: (action: IAction) => void;
 }
 
 export const UserContext = createContext<IUserContext>({
-  setUserState: () => {},
-  user: null,
+  state: { user: null },
+  dispatch: () => null,
 });
 
+const authReducer = (state: { user: IUser | null }, action: IAction) => {
+  switch (action.type) {
+    case "USER_LOGIN":
+      return { user: action.payload };
+    case "USER_LOGOUT":
+      return { user: null };
+
+    default:
+      return state;
+  }
+};
+
 export const UserContextProvider = ({ children }: any) => {
-  const [user, setUser] = useState<IUser | null>(null);
+  const [state, dispatch] = useReducer(authReducer, { user: null });
 
-  const setUserState = (userObject: IUser) => {
-    setUser(userObject);
-  };
-
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user")!);
+    console.log(user);
+    if (user) {
+      dispatch({ type: "USER_LOGIN", payload: user });
+    }
+  }, []);
   return (
-    <UserContext.Provider value={{ setUserState, user }}>
+    <UserContext.Provider value={{ state, dispatch }}>
       {children}
     </UserContext.Provider>
   );

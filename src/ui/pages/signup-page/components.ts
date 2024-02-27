@@ -63,19 +63,19 @@ export const UserInfoInput = styled.input`
   }
 `;
 
-export const LoginButton = styled.button`
+export const SignUpButton = styled.button`
   width: 100%;
   height: 45px;
   padding: 10px;
   border-radius: 20px;
   border: none;
-  cursor: pointer;
   font-weight: 600;
   margin: 10px 0px;
 
-  &:hover {
+  &:hover:enabled {
     background-color: ${(props) => props.theme.colors.primary};
     color: white;
+    cursor: pointer;
   }
 `;
 

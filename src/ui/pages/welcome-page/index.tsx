@@ -9,10 +9,10 @@ import {
   GetStartedButton,
   ShopNowButton,
 } from "./component";
-import { useUserContext } from "../../../context/hooks";
+import { useAuthContext } from "../../../context/hooks";
 
 export const WelcomePage = () => {
-  const { user } = useUserContext();
+  const { state } = useAuthContext();
   const navigate = useNavigate();
   return (
     <Container>
@@ -28,7 +28,9 @@ export const WelcomePage = () => {
           </Typography>
           <ShopNowButton
             onClick={
-              user ? () => navigate("/products") : () => navigate("/login")
+              state.user
+                ? () => navigate("/products")
+                : () => navigate("/login")
             }
           >
             Shop Now

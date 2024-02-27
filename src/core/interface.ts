@@ -15,14 +15,8 @@ export interface IOrder {
   time?: string;
 }
 
-// export interface IUser {
-//   _id?: string;
-//   name: string;
-//   email: string;
-//   time?: string;
-// }
 export interface IUser {
-  name: string;
+  name?: string;
   email: string;
   password: any;
   _id?: string;

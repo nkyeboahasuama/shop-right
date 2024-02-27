@@ -1,3 +1,4 @@
+import { useAuthContext, useAuthentication } from "../../../context/hooks";
 import { Typography } from "../../sharedComponents/atoms";
 import {
   Container,
@@ -13,6 +14,7 @@ interface IUserInfoModal {
   closeModal: () => void;
 }
 export const UserInfoModal: React.FC<IUserInfoModal> = ({ closeModal }) => {
+  const { logoutUser } = useAuthentication();
   return (
     <Container>
       <Overlay onClick={closeModal}></Overlay>
@@ -21,7 +23,7 @@ export const UserInfoModal: React.FC<IUserInfoModal> = ({ closeModal }) => {
         <UserName>Nana</UserName>
         <UserEmail>ahhs@gamamil.com</UserEmail>
         <Typography variant="small">Manage account</Typography>
-        <LogoutButton>Logout</LogoutButton>
+        <LogoutButton onClick={() => logoutUser()}>Logout</LogoutButton>
       </Content>
     </Container>
   );

@@ -5,23 +5,23 @@ import {
   ContentContainer,
   Content,
   UserInfoInput,
-  LoginButton,
   UserIcon,
   InputContainer,
   LockIcon,
   PolicyTextContainer,
+  SignUpButton,
 } from "./components";
 import { IUser } from "../../../core/interface";
 import { useState } from "react";
-import { userService } from "../../../service/users/user.service";
-import { useUserContext } from "../../../context/hooks";
+import { useAuthContext, useAuthentication } from "../../../context/hooks";
 
 export const SignUpPage = () => {
   const [username, setUsername] = useState("");
   const [userEmail, setUserEmail] = useState<string>("");
   const [password, setPassword] = useState<any>();
 
-  const { setUserState } = useUserContext();
+  const { signUp, isLoading, error } = useAuthentication();
+  const { state } = useAuthContext();
   const navigate = useNavigate();
 
   const newUserObject: IUser = {
@@ -31,13 +31,12 @@ export const SignUpPage = () => {
   };
 
   const handleNewUserSignUp = async () => {
-    try {
-      const results = await userService.createUser(newUserObject);
-      if (!results) throw new Error("Called from sign up function");
-      setUserState(results.data);
-      navigate("/products");
-    } catch (error) {
-      console.log(error);
+    await signUp(newUserObject);
+    if (state.user !== null) {
+      console.log(state.user);
+      state.user && navigate("/products");
+    } else {
+      return;
     }
   };
   return (
@@ -76,7 +75,9 @@ export const SignUpPage = () => {
             <LockIcon />
           </InputContainer>
 
-          <LoginButton onClick={handleNewUserSignUp}>Sign up</LoginButton>
+          <SignUpButton onClick={handleNewUserSignUp} disabled={isLoading}>
+            Sign up
+          </SignUpButton>
 
           <PolicyTextContainer>
             <Typography variant="tiny" style={{ textAlign: "center" }}>
@@ -93,6 +94,7 @@ export const SignUpPage = () => {
           </PolicyTextContainer>
         </Content>
       </ContentContainer>
+      {error && <div>{error}</div>}
     </Container>
   );
 };

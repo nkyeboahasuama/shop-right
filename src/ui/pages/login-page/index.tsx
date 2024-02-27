@@ -11,28 +11,28 @@ import {
   LockIcon,
   PolicyTextContainer,
 } from "./components";
-import { useState } from "react";
-import { userService } from "../../../service/users/user.service";
-import { useUserContext } from "../../../context/hooks";
+import { FormEvent, useEffect, useState } from "react";
+import { useAuthContext, useAuthentication } from "../../../context/hooks";
 import { IUser } from "../../../core/interface";
 
 export const LoginPage = () => {
   const [userEmail, setUserEmail] = useState("");
   const [password, setUserPassword] = useState<any>("");
+  const [loading, setLoading] = useState(false);
 
-  const { setUserState, user } = useUserContext();
-
-  const handleLogin = async () => {
-    try {
-      const results = await userService.loginUser(userEmail, password);
-      if (!results) throw new Error("User error: Can not login user");
-      setUserState(results.data);
-      navigate("/products");
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const { loginUser, isLoading, error } = useAuthentication();
+  const { state } = useAuthContext();
   const navigate = useNavigate();
+
+  const handleLogin = async (event: React.FormEvent) => {
+    event.preventDefault();
+    const user: IUser = { email: userEmail, password };
+    await loginUser(user);
+  };
+
+  useEffect(() => {
+    state.user && navigate("/products");
+  }, [state.user?.email]);
   return (
     <Container>
       <ContentContainer>
@@ -41,6 +41,7 @@ export const LoginPage = () => {
         <Content>
           <InputContainer>
             <UserInfoInput
+              required
               type="text"
               name="email"
               placeholder="example@email.com"
@@ -51,6 +52,7 @@ export const LoginPage = () => {
 
           <InputContainer>
             <UserInfoInput
+              required
               type="password"
               name="password"
               placeholder="Password"
@@ -59,7 +61,9 @@ export const LoginPage = () => {
             <LockIcon />
           </InputContainer>
 
-          <LoginButton onClick={handleLogin}>Login</LoginButton>
+          <LoginButton onClick={handleLogin}>
+            {loading ? "Wait..." : "Login"}
+          </LoginButton>
 
           <PolicyTextContainer>
             <Typography variant="tiny" style={{ textAlign: "center" }}>
@@ -76,6 +80,7 @@ export const LoginPage = () => {
           </PolicyTextContainer>
         </Content>
       </ContentContainer>
+      {error && <div>{error}</div>}
     </Container>
   );
 };

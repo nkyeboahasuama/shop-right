@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Typography } from "../atoms";
 import { CartIcon, HeaderContainer, UserIcon } from "./components";
 import { useNavigate } from "react-router-dom";
-import { useCartContext, useUserContext } from "../../../context/hooks";
 import { UserInfoModal } from "../../modals/userInfoModal";
+import { useAuthContext } from "../../../context/hooks/user/useAuthContext";
+import { useCartContext } from "../../../context/hooks/cart/useCartContext";
 
 export const Header = () => {
   const [showUserModal, setShowUserModal] = useState(false);
   const { cartItems } = useCartContext();
-  const { user } = useUserContext();
+  const { state } = useAuthContext();
 
   const navigate = useNavigate();
 
@@ -30,7 +31,9 @@ export const Header = () => {
           <CartIcon onClick={() => navigate("/cart")} />
           <span>{cartItems.length}</span>
         </div>
-        {user && <UserIcon onClick={() => setShowUserModal(!showUserModal)} />}
+        {state.user && (
+          <UserIcon onClick={() => setShowUserModal(!showUserModal)} />
+        )}
         {showUserModal && <UserInfoModal closeModal={handleCloseModal} />}
       </ul>
     </HeaderContainer>

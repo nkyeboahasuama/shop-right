@@ -13,27 +13,53 @@ import {
 } from "./components";
 import { BiMinus, BiPlus } from "react-icons/bi";
 import { MdOutlineClose } from "react-icons/md";
+import { ICartItem } from "../../../core/interface";
+import { useCartContext } from "../../../context/hooks";
+import { Typography } from "../../sharedComponents/atoms";
 
-export const CartItemComponent = () => {
+interface IProps {
+  cartItem: ICartItem;
+}
+
+export const CartItemComponent: React.FC<IProps> = ({ cartItem }) => {
+  const { quantityUpdates, cartItemPrice, removeProductFromCart } =
+    useCartContext();
+
+  const handleIncrease = () => {
+    quantityUpdates(cartItem, { action: "increase" });
+  };
+
+  const handleDecrease = () => {
+    quantityUpdates(cartItem, { action: "decrease" });
+  };
+
   return (
     <CartItemContainer>
       <CartItem>
         <CartItemCard></CartItemCard>
-        <CartItemName>Product Name</CartItemName>
+        <div>
+          <CartItemName>{cartItem.product.name}</CartItemName>
+          <Typography variant="p">${cartItem.product.price}</Typography>
+          {cartItem.selected_size && (
+            <Typography variant="small">
+              Size: {cartItem.selected_size.toLocaleUpperCase()}
+            </Typography>
+          )}
+        </div>
       </CartItem>
       <CartValueDetails>
         <CartItemQuantity>
-          <MinusButton>
+          <MinusButton onClick={handleDecrease}>
             <BiMinus />
           </MinusButton>
-          3
-          <PlusButton>
+          {cartItem.quantity}
+          <PlusButton onClick={handleIncrease}>
             <BiPlus />
           </PlusButton>
         </CartItemQuantity>
-        <CartItemPrice>$230</CartItemPrice>
+        <CartItemPrice>${cartItemPrice(cartItem)}</CartItemPrice>
       </CartValueDetails>
-      <CancelButton>
+      <CancelButton onClick={() => removeProductFromCart(cartItem)}>
         <MdOutlineClose />
       </CancelButton>
     </CartItemContainer>

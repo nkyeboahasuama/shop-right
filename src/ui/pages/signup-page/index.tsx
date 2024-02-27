@@ -5,15 +5,40 @@ import {
   ContentContainer,
   Content,
   UserInfoInput,
-  LoginButton,
   UserIcon,
   InputContainer,
   LockIcon,
   PolicyTextContainer,
+  SignUpButton,
 } from "./components";
+import { IUser } from "../../../core/interface";
+import { useState } from "react";
+import { useAuthContext, useAuthentication } from "../../../context/hooks";
 
 export const SignUpPage = () => {
+  const [username, setUsername] = useState("");
+  const [userEmail, setUserEmail] = useState<string>("");
+  const [password, setPassword] = useState<any>();
+
+  const { signUp, isLoading, error } = useAuthentication();
+  const { state } = useAuthContext();
   const navigate = useNavigate();
+
+  const newUserObject: IUser = {
+    name: username,
+    email: userEmail,
+    password: password,
+  };
+
+  const handleNewUserSignUp = async () => {
+    await signUp(newUserObject);
+    if (state.user !== null) {
+      console.log(state.user);
+      state.user && navigate("/products");
+    } else {
+      return;
+    }
+  };
   return (
     <Container>
       <ContentContainer>
@@ -23,8 +48,19 @@ export const SignUpPage = () => {
           <InputContainer>
             <UserInfoInput
               type="text"
+              name="name"
+              placeholder="Choose a username"
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <UserIcon />
+          </InputContainer>
+
+          <InputContainer>
+            <UserInfoInput
+              type="text"
               name="email"
               placeholder="example@email.com"
+              onChange={(e) => setUserEmail(e.target.value)}
             />
             <UserIcon />
           </InputContainer>
@@ -34,13 +70,14 @@ export const SignUpPage = () => {
               type="password"
               name="password"
               placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
             />
             <LockIcon />
           </InputContainer>
 
-          <LoginButton onClick={() => navigate("/products")}>
+          <SignUpButton onClick={handleNewUserSignUp} disabled={isLoading}>
             Sign up
-          </LoginButton>
+          </SignUpButton>
 
           <PolicyTextContainer>
             <Typography variant="tiny" style={{ textAlign: "center" }}>
@@ -57,6 +94,7 @@ export const SignUpPage = () => {
           </PolicyTextContainer>
         </Content>
       </ContentContainer>
+      {error && <div>{error}</div>}
     </Container>
   );
 };

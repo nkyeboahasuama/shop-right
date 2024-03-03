@@ -14,11 +14,12 @@ export const useAuthentication = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await axios.post<IUser>(`${USER_API}/signup`, {
+      const response = await axios.post(`${USER_API}/signup`, {
         newUser,
       });
       setIsLoading(false);
       dispatch({ type: "USER_LOGIN", payload: response.data });
+      localStorage.setItem("user", JSON.stringify(response.data));
       return response;
     } catch (error: any) {
       console.log(error);

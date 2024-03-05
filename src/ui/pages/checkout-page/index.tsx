@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Header } from "../../sharedComponents";
 import { Typography } from "../../sharedComponents/atoms";
 import {
+  ButtonsContainer,
   Container,
   Step,
   StepButton,
@@ -9,16 +10,17 @@ import {
   StepNumber,
   StepsContainer,
 } from "./components";
-import { SummaryPage } from "./sub-pages/SummaryPage";
 import { ShippingPage } from "./sub-pages/ShippingPage";
 import { PaymentPage } from "./sub-pages/PaymentPage";
 import { ReviewPage } from "./sub-pages/ReviewPage";
 import { BiCheck } from "react-icons/bi";
+import { SummaryPage } from "./sub-pages";
+import { useNavigate } from "react-router-dom";
 
 export const CheckoutPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isLastStep, setIsLastStep] = useState(false);
-
+  const navigate = useNavigate();
   const stepsConfig = [
     {
       name: "Summary",
@@ -55,7 +57,7 @@ export const CheckoutPage = () => {
     <>
       <Header />
       <Container>
-        <Typography variant="h4">Checkout</Typography>
+        <Typography variant="h3">Checkout</Typography>
         <StepsContainer>
           {stepsConfig.map((step, index) => (
             <Step key={index}>
@@ -73,24 +75,15 @@ export const CheckoutPage = () => {
             </Step>
           ))}
         </StepsContainer>
-        {!isLastStep && (
-          <StepButton onClick={handleNextStep}>
-            {currentStep === stepsConfig.length ? "Finish " : "Next"}
-          </StepButton>
-        )}
-        <div>{stepsConfig[currentStep - 1].component}</div>
-        {/* <LeftContainer>
-          <EmailContainer>
-            <input placeholder="Email"/>
-            <Typography variant="small">You'll recieve receipts and notifications at this email address</Typography>
-            <button>Continue</button>
-          </EmailContainer>
-        </LeftContainer>
-        <RightContainer>
-          <OrderSummary>
 
-          </OrderSummary>
-        </RightContainer> */}
+        <div>{stepsConfig[currentStep - 1].component}</div>
+        <ButtonsContainer>
+          {!isLastStep && (
+            <StepButton onClick={handleNextStep}>
+              {currentStep === stepsConfig.length ? "Finish" : "Continue"}
+            </StepButton>
+          )}
+        </ButtonsContainer>
       </Container>
     </>
   );

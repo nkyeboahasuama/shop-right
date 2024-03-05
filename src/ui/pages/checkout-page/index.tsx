@@ -4,23 +4,22 @@ import { Typography } from "../../sharedComponents/atoms";
 import {
   ButtonsContainer,
   Container,
+  NextButton,
+  PreviousButton,
   Step,
-  StepButton,
   StepName,
   StepNumber,
   StepsContainer,
 } from "./components";
-import { ShippingPage } from "./sub-pages/ShippingPage";
+
 import { PaymentPage } from "./sub-pages/PaymentPage";
 import { ReviewPage } from "./sub-pages/ReviewPage";
 import { BiCheck } from "react-icons/bi";
-import { SummaryPage } from "./sub-pages";
-import { useNavigate } from "react-router-dom";
+import { ShippingPage, SummaryPage } from "./sub-pages";
 
 export const CheckoutPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isLastStep, setIsLastStep] = useState(false);
-  const navigate = useNavigate();
   const stepsConfig = [
     {
       name: "Summary",
@@ -51,7 +50,15 @@ export const CheckoutPage = () => {
     });
   };
 
-  console.log(currentStep);
+  const handlePreviousStep = () => {
+    setCurrentStep((prevStep) => {
+      if (prevStep === 1) {
+        return prevStep;
+      } else {
+        return prevStep - 1;
+      }
+    });
+  };
 
   return (
     <>
@@ -66,7 +73,7 @@ export const CheckoutPage = () => {
                 $completed={currentStep > index + 1 || isLastStep}
               >
                 {currentStep > index + 1 || isLastStep ? (
-                  <BiCheck />
+                  <BiCheck size={18} />
                 ) : (
                   index + 1
                 )}
@@ -78,10 +85,16 @@ export const CheckoutPage = () => {
 
         <div>{stepsConfig[currentStep - 1].component}</div>
         <ButtonsContainer>
+          {currentStep !== 1 && (
+            <PreviousButton onClick={handlePreviousStep}>
+              Previous
+            </PreviousButton>
+          )}
+
           {!isLastStep && (
-            <StepButton onClick={handleNextStep}>
+            <NextButton onClick={handleNextStep}>
               {currentStep === stepsConfig.length ? "Finish" : "Continue"}
-            </StepButton>
+            </NextButton>
           )}
         </ButtonsContainer>
       </Container>

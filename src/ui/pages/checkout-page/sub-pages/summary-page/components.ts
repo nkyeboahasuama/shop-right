@@ -36,7 +36,7 @@ export const TableBody = styled.tbody``;
 
 export const TableRow = styled.tr`
   &:nth-child(even) {
-    background-color: ${(props) => `${props.theme.colors.secondary}50`};
+    background-color: ${(props) => `${props.theme.colors.secondary}30`};
   }
 `;
 
@@ -47,12 +47,13 @@ export const TableData = styled.td`
 `;
 
 export const TableOrderTotal = styled.tr`
-  background-color: ${(props) => `${props.theme.colors.secondary}50`};
+  background-color: ${(props) => `${props.theme.colors.secondary}99`};
+  color: white;
   td {
     font-weight: 600;
-  }
-  &:empty {
-    display: none;
+    &:empty {
+      visibility: hidden;
+    }
   }
 `;
 

@@ -40,14 +40,13 @@ export const SummaryPage = () => {
               </TableData>
             </TableRow>
           ))}
+          <TableOrderTotal>
+            <td></td>
+            <td></td>
+            <TableData>Total order price:</TableData>
+            <TableData>$ {cartItemsTotalPrice()}</TableData>
+          </TableOrderTotal>
         </TableBody>
-
-        <TableOrderTotal>
-          <td></td>
-          <td></td>
-          <TableData>Total order price:</TableData>
-          <TableData>$ {cartItemsTotalPrice()}</TableData>
-        </TableOrderTotal>
       </Table>
       <EditButton onClick={() => navigate("/cart")}>Edit</EditButton>
     </Container>

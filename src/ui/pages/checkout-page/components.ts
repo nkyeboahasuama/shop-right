@@ -6,7 +6,7 @@ export const Container = styled.div`
   justify-content: center;
   gap: 50px;
   box-sizing: border-box;
-  padding: 0px 10% 100px 10%;
+  padding: 0px 15% 100px 15%;
 `;
 
 export const StepsContainer = styled.div`

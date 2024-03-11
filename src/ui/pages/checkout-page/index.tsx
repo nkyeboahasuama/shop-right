@@ -12,10 +12,13 @@ import {
   StepsContainer,
 } from "./components";
 
-import { PaymentPage } from "./sub-pages/PaymentPage";
-import { ReviewPage } from "./sub-pages/ReviewPage";
 import { BiCheck } from "react-icons/bi";
-import { ShippingPage, SummaryPage } from "./sub-pages";
+import {
+  PaymentPage,
+  ReviewPage,
+  ShippingPage,
+  SummaryPage,
+} from "./sub-pages";
 
 export const CheckoutPage = () => {
   const [currentStep, setCurrentStep] = useState(1);

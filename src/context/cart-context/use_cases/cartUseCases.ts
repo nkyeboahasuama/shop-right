@@ -52,14 +52,15 @@ class CartCoreActions {
     }
   };
 
-  totalCartItemAmount = (cartItem: ICartItem): number => {
+  totalCartItemPriceByQuamtity = (cartItem: ICartItem): number => {
     const cartItemTotalPrice = cartItem.product.price * cartItem.quantity;
     return cartItemTotalPrice;
   };
 
   totalCartPrice = (): number => {
     const allCartItemsTotalPrice = this.cartItems.reduce(
-      (totalPrice, cartItem) => totalPrice + this.totalCartItemAmount(cartItem),
+      (totalPrice, cartItem) =>
+        totalPrice + this.totalCartItemPriceByQuamtity(cartItem),
       0
     );
     return allCartItemsTotalPrice;

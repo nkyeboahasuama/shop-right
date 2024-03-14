@@ -10,6 +10,8 @@ import {
   StepsContainer,
 } from "../components";
 import { BiCheck } from "react-icons/bi";
+import { SuccessPage } from "../sub-pages";
+import { useNavigate } from "react-router-dom";
 
 interface ICheckoutStepperProps {
   stepsConfig: {
@@ -23,6 +25,7 @@ export const CheckoutStepper: React.FC<ICheckoutStepperProps> = ({
 }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isLastStep, setIsLastStep] = useState(false);
+  const navigate = useNavigate();
 
   const handleNextStep = () => {
     setCurrentStep((prevStep) => {
@@ -45,10 +48,16 @@ export const CheckoutStepper: React.FC<ICheckoutStepperProps> = ({
     });
   };
 
+  const handleBackToHome = () => {
+    navigate("/products");
+  };
+
   const progressLineWidth =
     ((currentStep - 1) / (stepsConfig.length - 1)) * 100;
 
-  const ActiveComponent = stepsConfig[currentStep - 1].component;
+  const ActiveComponent = isLastStep
+    ? SuccessPage
+    : stepsConfig[currentStep - 1].component;
   return (
     <CheckoutStepperContainer>
       <StepsContainer>
@@ -74,15 +83,19 @@ export const CheckoutStepper: React.FC<ICheckoutStepperProps> = ({
       <ActiveComponent />
 
       <ButtonsContainer>
-        {currentStep !== 1 && (
+        {currentStep !== 1 && !isLastStep && (
           <NavigationButton onClick={handlePreviousStep}>
             Previous
           </NavigationButton>
         )}
 
-        {!isLastStep && (
+        {!isLastStep ? (
           <NavigationButton onClick={handleNextStep}>
             {currentStep === stepsConfig.length ? "Finish" : "Continue"}
+          </NavigationButton>
+        ) : (
+          <NavigationButton onClick={handleBackToHome}>
+            Go Shopping
           </NavigationButton>
         )}
       </ButtonsContainer>

@@ -20,7 +20,7 @@ export const Container = styled.div`
 
     input {
       height: 40px;
-      padding: 0px 5px;
+      padding: 0px 10px;
     }
     select {
       height: 40px;

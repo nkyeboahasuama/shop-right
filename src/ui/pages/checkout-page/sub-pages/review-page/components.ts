@@ -46,9 +46,10 @@ export const ItemCard = styled.div`
 `;
 
 export const SignatureInput = styled.input`
-  width: 80%;
-  padding: 10px;
-  font-size: 16px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 40px;
+  padding: 0px 10px;
   border: 1px solid #ddd;
   border-radius: 6px;
 `;

@@ -67,7 +67,7 @@ export const CartContextProvider = ({ children }: any) => {
   };
 
   const cartItemPrice = (cartItem: ICartItem) => {
-    const results = cartActions.totalCartItemAmount(cartItem);
+    const results = cartActions.totalCartItemPriceByQuamtity(cartItem);
     return results;
   };
 

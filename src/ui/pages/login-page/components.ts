@@ -29,7 +29,7 @@ export const ContentContainer = styled.div`
   }
 `;
 
-export const Content = styled.div`
+export const Content = styled.form`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -75,8 +75,9 @@ export const LoginButton = styled.button`
   margin: 10px 0px;
 
   &:hover {
-    background-color: ${(props) => props.theme.colors.primary};
-    color: white;
+    background-color: ${(props) =>
+      props.disabled ? "gray" : props.theme.colors.primary};
+    color: ${(props) => (props.disabled ? "white" : "inherit")};
   }
 `;
 

@@ -12,26 +12,70 @@ import {
   SignUpPage,
   WelcomePage,
 } from "./ui/pages";
+import { CartContextProvider } from "./context/cart-context";
+import { UserContextProvider } from "./context/user-context";
+import { useAuthContext } from "./context/hooks";
 
 function App() {
+  const { state } = useAuthContext();
+  const routes = [
+    {
+      path: "/admin",
+      element: <AdminPage />,
+    },
+
+    {
+      path: "/products",
+      element: <ProductsPage />,
+    },
+    {
+      path: "/product/:productId",
+      element: <ProductDetailPage />,
+    },
+    {
+      path: "/cart",
+      element: <CartPage />,
+    },
+    {
+      path: "/checkout",
+      element: <CheckoutPage />,
+    },
+  ];
+
+  const requireAuthRoutes = [
+    {
+      path: "/login",
+      element: <LoginPage />,
+    },
+    {
+      path: "/signup",
+      element: <SignUpPage />,
+    },
+  ];
   return (
     <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<WelcomePage />} />
-          <Route path="/admin" element={<AdminPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignUpPage />} />
-
-          <Route path="/products" element={<ProductsPage />} />
-
-          <Route path="/product/:productId" element={<ProductDetailPage />} />
-
-          <Route path="/cart" element={<CartPage />} />
-
-          <Route path="/checkout" element={<CheckoutPage />} />
-        </Routes>
-      </BrowserRouter>
+      <UserContextProvider>
+        <CartContextProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<WelcomePage />} />
+              {routes.map((route, index) => (
+                <Route key={index} path={route.path} element={route.element} />
+              ))}
+              {requireAuthRoutes.map(
+                (route, index) =>
+                  !state.user && (
+                    <Route
+                      key={index}
+                      path={route.path}
+                      element={route.element}
+                    />
+                  )
+              )}
+            </Routes>
+          </BrowserRouter>
+        </CartContextProvider>
+      </UserContextProvider>
     </ThemeProvider>
   );
 }

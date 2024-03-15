@@ -11,9 +11,27 @@ import {
   LockIcon,
   PolicyTextContainer,
 } from "./components";
+import { useEffect, useState } from "react";
+import { useAuthContext, useAuthentication } from "../../../context/hooks";
+import { IUser } from "../../../core/interface";
 
 export const LoginPage = () => {
+  const [userEmail, setUserEmail] = useState("");
+  const [password, setUserPassword] = useState<any>("");
+
+  const { loginUser, isLoading, error } = useAuthentication();
+  const { state } = useAuthContext();
   const navigate = useNavigate();
+
+  const handleLogin = async (event: React.FormEvent) => {
+    event.preventDefault();
+    const user: IUser = { email: userEmail, password };
+    await loginUser(user);
+  };
+
+  useEffect(() => {
+    state.user && navigate("/products");
+  }, [state.user?.email]);
   return (
     <Container>
       <ContentContainer>
@@ -22,23 +40,29 @@ export const LoginPage = () => {
         <Content>
           <InputContainer>
             <UserInfoInput
+              required
               type="text"
               name="email"
               placeholder="example@email.com"
+              onChange={(e) => setUserEmail(e.target.value)}
             />
             <UserIcon />
           </InputContainer>
 
           <InputContainer>
             <UserInfoInput
+              required
               type="password"
               name="password"
               placeholder="Password"
+              onChange={(e) => setUserPassword(e.target.value)}
             />
             <LockIcon />
           </InputContainer>
 
-          <LoginButton onClick={() => navigate("/products")}>Login</LoginButton>
+          <LoginButton onClick={handleLogin}>
+            {isLoading ? "Wait..." : "Login"}
+          </LoginButton>
 
           <PolicyTextContainer>
             <Typography variant="tiny" style={{ textAlign: "center" }}>
@@ -55,6 +79,7 @@ export const LoginPage = () => {
           </PolicyTextContainer>
         </Content>
       </ContentContainer>
+      {error && <div>{error}</div>}
     </Container>
   );
 };

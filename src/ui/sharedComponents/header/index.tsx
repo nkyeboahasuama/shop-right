@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { Typography } from "../atoms";
 import { CartIcon, HeaderContainer, UserIcon } from "./components";
 import { useNavigate } from "react-router-dom";

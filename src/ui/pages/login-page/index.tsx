@@ -11,14 +11,13 @@ import {
   LockIcon,
   PolicyTextContainer,
 } from "./components";
-import { FormEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuthContext, useAuthentication } from "../../../context/hooks";
 import { IUser } from "../../../core/interface";
 
 export const LoginPage = () => {
   const [userEmail, setUserEmail] = useState("");
   const [password, setUserPassword] = useState<any>("");
-  const [loading, setLoading] = useState(false);
 
   const { loginUser, isLoading, error } = useAuthentication();
   const { state } = useAuthContext();
@@ -62,7 +61,7 @@ export const LoginPage = () => {
           </InputContainer>
 
           <LoginButton onClick={handleLogin}>
-            {loading ? "Wait..." : "Login"}
+            {isLoading ? "Wait..." : "Login"}
           </LoginButton>
 
           <PolicyTextContainer>

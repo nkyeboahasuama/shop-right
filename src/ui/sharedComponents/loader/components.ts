@@ -1,5 +1,3 @@
-// Loader.js
-import React from "react";
 import styled, { keyframes } from "styled-components";
 
 const spinAnimation = keyframes`

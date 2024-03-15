@@ -33,6 +33,7 @@ export const Content = styled.div`
   padding: 20px;
   border-radius: 10px;
   background-color: ${(props) => props.theme.colors.primary};
+  z-index: 2;
 
   p {
     text-transform: capitalize;

@@ -8,7 +8,7 @@ import {
   StepName,
   StepNumber,
   StepsContainer,
-} from "../components";
+} from "./components";
 import { BiCheck } from "react-icons/bi";
 import { SuccessPage } from "../sub-pages";
 import { useNavigate } from "react-router-dom";

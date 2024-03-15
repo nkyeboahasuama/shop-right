@@ -26,19 +26,18 @@ export const ProductDetailPage = () => {
   const { addToCart } = useCartContext();
 
   useEffect(() => {
+    const getProductDetails = async () => {
+      try {
+        if (!productId) return;
+        const data = await productService.getProductDetails(productId);
+
+        setProduct(data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     getProductDetails();
   }, [productId]);
-
-  const getProductDetails = async () => {
-    try {
-      if (!productId) return;
-      const data = await productService.getProductDetails(productId);
-
-      setProduct(data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const handleAddToCart = () => {
     if (!product) return;
